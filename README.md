@@ -17,7 +17,6 @@ A modern, framework-agnostic SDK for integrating Chekin's inbox platform into yo
 ### Installation
 
 ```bash
-# For vanilla JavaScript/TypeScript
 yarn add @chekinapp/inbox-sdk
 ```
 
