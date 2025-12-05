@@ -20,9 +20,7 @@ The project is a **Nx-based monorepo** with the following structure:
 │   │   │   ├── utils/                  # Utilities (URL formatting, logging, validation)
 │   │   │   └── types/                  # TypeScript definitions
 │   │   └── sandbox.html               # Development sandbox
-│   └── react/                   # @chekinapp/inbox-sdk-react (React components)
-│       ├── src/components/             # ChekinHostSDKView
-│       └── src/hooks/                  # useHostSDKEventListener
+│   └── eslint-config/           # Shared ESLint configuration
 ├── docs/                        # API documentation
 ├── dist/                        # Build outputs
 └── nx.json                     # Nx workspace configuration
@@ -33,7 +31,6 @@ The project is a **Nx-based monorepo** with the following structure:
 - **ChekinHostSDK**: Main vanilla JS/TS class with iframe management, validation, logging
 - **Communication Layer**: postMessage-based parent-iframe communication with event handling
 - **URL Management**: Smart URL formatting with length limits and postMessage fallback
-- **React Components**: ChekinHostSDKView with ref support and event handling hooks
 - **Security**: Proper iframe sandboxing with CSP compliance
 - **Logging & Validation**: Comprehensive error handling and configuration validation
 
@@ -41,33 +38,30 @@ The project is a **Nx-based monorepo** with the following structure:
 
 **Setup:**
 
-- `npm install` - Install dependencies
+- `yarn install` - Install dependencies
 - `nx reset` - Reset Nx cache
 
 **Build Commands:**
 
-- `npm run build` - Build all packages (uses Nx)
-- `npm run build:core` - Build core SDK only
-- `npm run build:react` - Build React package only
-- `npm run build:inbox-sdk` - Build host SDK app
+- `yarn build` - Build all packages (uses Nx)
+- `yarn build:core` - Build core SDK only
 
 **Development:**
 
-- `npm run dev` - Start all development servers in parallel
+- `yarn dev` - Start all development servers in parallel
 - `nx dev core` - Start core package development
-- `nx dev react` - Start React package development
 
 **Quality Assurance:**
 
-- `npm run test` - Run all tests
-- `npm run lint` - Lint all packages
-- `npm run typecheck` - TypeScript type checking across all packages
+- `yarn test` - Run all tests
+- `yarn lint` - Lint all packages
+- `yarn typecheck` - TypeScript type checking across all packages
 
 **Single Package Testing:**
 
-- `cd packages/core && npm run test` - Run core package tests
-- `cd packages/core && npm run test:watch` - Run tests in watch mode
-- `cd packages/core && npm run test:coverage` - Run tests with coverage
+- `cd packages/core && yarn test` - Run core package tests
+- `cd packages/core && yarn test:watch` - Run tests in watch mode
+- `cd packages/core && yarn test:coverage` - Run tests with coverage
 
 ## Core SDK Architecture
 
@@ -93,19 +87,7 @@ Main SDK class providing:
 - **PostMessage Fallback**: Large configs sent via postMessage after iframe load
 - **Version Support**: Optional version pinning or latest deployment
 
-## React Components
-
-### Core Components (`packages/react/src/components/`)
-
-- **ChekinHostSDKView**: Main React component with ref support for direct SDK access
-
-### Hooks (`packages/react/src/hooks/`)
-
-- **useHostSDKEventListener**: Event listener hook with automatic cleanup and type safety
-
 ## SDK Usage Patterns
-
-### Basic Initialization
 
 ```typescript
 import {ChekinHostSDK} from '@chekinapp/inbox-sdk';
@@ -118,18 +100,6 @@ const sdk = new ChekinHostSDK({
 });
 
 await sdk.render('container-element');
-```
-
-### React Integration
-
-```jsx
-import {ChekinHostSDKView} from '@chekinapp/inbox-sdk-react';
-
-<ChekinHostSDKView
-  apiKey="your-api-key"
-  features={['IV']}
-  onHeightChanged={height => console.log(height)}
-/>;
 ```
 
 ## Testing & Development
@@ -182,7 +152,6 @@ connect-src https://api.chekin.com;
 ### Package Names
 
 - **Core Package**: `@chekinapp/inbox-sdk` (published to npm)
-- **React Package**: `@chekinapp/inbox-sdk-react` (in development, not yet on npm)
 
 ### Migration from Legacy SDK
 

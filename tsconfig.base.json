@@ -14,8 +14,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@chekinapp/inbox-sdk": ["packages/core/src/index.ts"],
-      "@chekinapp/host-sdk-react": ["packages/react/src/index.ts"]
+      "@chekinapp/inbox-sdk": ["packages/core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

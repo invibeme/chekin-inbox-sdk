@@ -21,7 +21,7 @@ This package provides the foundational `ChekinHostSDK` class that can be used in
 ## Installation
 
 ```bash
-npm install @chekinapp/inbox-sdk
+yarn add @chekinapp/inbox-sdk
 ```
 
 ## Quick Start
@@ -327,10 +327,10 @@ export class ChekinComponent implements OnInit, OnDestroy {
 
 ```bash
 # Build the package
-npm run build
+yarn build
 
 # Development mode with watching
-npm run dev
+yarn dev
 ```
 
 ### Testing
@@ -351,7 +351,3 @@ The core package includes comprehensive tests for all functionality. Use the san
 - Safari 14+
 - Edge 90+
 - No Internet Explorer support
-
-## Related Packages
-
-- **[@chekinapp/inbox-sdk-react](../react/README.md)** - React components and hooks built on this core package (IN DEVELOPMENT - not yet available on npm)

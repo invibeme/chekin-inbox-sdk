@@ -20,10 +20,7 @@ A modern, framework-agnostic SDK for integrating Chekin's host management platfo
 
 ```bash
 # For vanilla JavaScript/TypeScript
-npm install @chekinapp/inbox-sdk
-
-# For React applications (In development and not available on npm yet)
-# npm install @chekinapp/host-sdk-react
+yarn add @chekinapp/inbox-sdk
 ```
 
 ### Basic Usage
@@ -43,46 +40,11 @@ sdk.render('chekin-container').then(() => {
 });
 ```
 
-#### React
-
-> **Note**: React components are currently in development and not yet available on npm.
-
-```jsx
-import {ChekinHostSDKView} from '@chekinapp/host-sdk-react';
-
-function MyComponent() {
-  return (
-    <ChekinHostSDKView
-      apiKey="your-api-key"
-      features={['IV', 'LIVENESS_DETECTION']}
-      onHeightChanged={height => console.log(height)}
-    />
-  );
-}
-```
-
-#### React with Event Handling
-
-```jsx
-import {useHostSDKEventListener, ChekinHostSDKView} from '@chekinapp/host-sdk-react';
-
-function MyComponent() {
-  useHostSDKEventListener({
-    onHeightChanged: height => console.log('Height:', height),
-    onError: error => console.error('SDK Error:', error),
-  });
-
-  return <ChekinHostSDKView apiKey="your-api-key" features={['IV']} />;
-}
-```
-
 ## Package Structure
 
 This repository contains multiple packages:
 
 - **[`@chekinapp/inbox-sdk`](./packages/core/README.md)** - Core framework-agnostic SDK
-- **[`@chekinapp/host-sdk-react`](./packages/react/README.md)** - React components and hooks (IN DEVELOPMENT)
-- **`apps/inbox-sdk`** - Iframe application (deployed to CDN)
 
 ## Architecture
 
@@ -170,69 +132,6 @@ sdk.on('ready', () => {
 });
 ```
 
-## React Components
-
-> **Note**: React components and hooks are currently in development and not yet available on npm. Use the vanilla JS SDK for now.
-
-### ChekinHostSDKView
-
-The main React component that embeds the SDK directly in your application:
-
-```jsx
-import { useRef } from 'react';
-import { ChekinHostSDKView } from '@chekinapp/host-sdk-react';
-import type { ChekinHostSDKViewHandle } from '@chekinapp/host-sdk-react';
-
-function MyComponent() {
-  const sdkRef = useRef<ChekinHostSDKViewHandle>(null);
-
-  return (
-    <ChekinHostSDKView
-      ref={sdkRef}
-      apiKey="your-api-key"
-      features={['IV', 'LIVENESS_DETECTION']}
-      autoHeight={true}
-      onHeightChanged={(height) => console.log(height)}
-      onError={(error) => console.error(error)}
-      className="my-sdk-container"
-      style={{ minHeight: '400px' }}
-    />
-  );
-}
-```
-
-## React Hooks
-
-### useHostSDKEventListener
-
-Listen to SDK events with automatic cleanup:
-
-```jsx
-import {useHostSDKEventListener} from '@chekinapp/host-sdk-react';
-
-function MyComponent() {
-  useHostSDKEventListener({
-    onHeightChanged: height => {
-      console.log('Height changed:', height);
-    },
-    onError: error => {
-      console.error('SDK Error:', error.message);
-    },
-    onConnectionError: error => {
-      console.error('Connection Error:', error);
-    },
-    onPoliceAccountConnection: data => {
-      console.log('Police account connected:', data);
-    },
-    onStatAccountConnection: data => {
-      console.log('Stat account connected:', data);
-    },
-  });
-
-  return <ChekinHostSDKView apiKey="your-api-key" />;
-}
-```
-
 ## Security
 
 ### Content Security Policy
@@ -249,46 +148,43 @@ connect-src https://api.chekin.com;
 ### Prerequisites
 
 - Node.js 18+
-- npm or pnpm
+- yarn
 
 ### Setup
 
 ```bash
 git clone https://github.com/chekin/chekin-inbox-sdk.git
 cd chekin-inbox-sdk
-npm install
+yarn install
 ```
 
 ### Build
 
 ```bash
 # Build all packages
-npm run build
+yarn build
 
 # Build specific package
-npm run build:core
-npm run build:react
-npm run build:inbox-sdk
+yarn build:core
 ```
 
 ### Development
 
 ```bash
 # Start all dev servers
-npm run dev
+yarn dev
 
 # Start specific package
 nx dev core
-nx dev react
 nx serve inbox-sdk
 ```
 
 ### Testing
 
 ```bash
-npm run test
-npm run lint
-npm run typecheck
+yarn test
+yarn lint
+yarn typecheck
 ```
 
 ## Documentation
@@ -297,7 +193,6 @@ For detailed API documentation and examples:
 
 - **[Migration Guide](./MIGRATION_GUIDE.md)** - Step-by-step migration from ChekinHousingsSDK
 - **[Core SDK Documentation](./packages/core/README.md)** - Complete guide to the framework-agnostic SDK
-- **[React Documentation](./packages/react/README.md)** - React components, hooks, and examples
 - **[Project Architecture](./CLAUDE.md)** - Developer guide and architecture overview
 
 ## Browser Support

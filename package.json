@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": "invibeme/chekin-inbox-sdk",
   "type": "module",
-  "private": false,
+  "private": true,
   "workspaces": [
     "packages/*",
     "apps/*"
@@ -14,7 +14,6 @@
   "scripts": {
     "build": "nx run-many --target=build --all",
     "build:core": "nx build core",
-    "build:react": "nx build react",
     "build:inbox-sdk": "nx build inbox-sdk",
     "dev": "nx run-many --target=dev --all --parallel",
     "test": "nx run-many --target=test --all",
@@ -22,7 +21,6 @@
     "typecheck": "nx run-many --target=typecheck --all",
     "clean": "nx reset",
     "publish:core": "nx publish core",
-    "publish:react": "nx publish react",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -30,7 +28,6 @@
     "@nx/eslint": "21.4.1",
     "@nx/eslint-plugin": "21.4.1",
     "@nx/js": "21.4.1",
-    "@nx/react": "21.4.1",
     "@nx/vite": "21.4.1",
     "@nx/web": "21.4.1",
     "@nx/workspace": "21.4.1",
@@ -38,9 +35,6 @@
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "@types/node": "^20.0.0",
-    "@types/react": "19.0.0",
-    "@types/react-dom": "19.0.0",
-    "@vitejs/plugin-react": "^4.2.0",
     "@vitest/ui": "^3.0.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
@@ -60,5 +54,6 @@
   },
   "nx": {
     "includedScripts": []
-  }
+  },
+  "packageManager": "yarn@4.12.0"
 }
