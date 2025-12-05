@@ -17,12 +17,12 @@
   "scripts": {
     "build": "nx run-many --target=build --all",
     "build:core": "nx build core",
-    "build:inbox-sdk": "nx build inbox-sdk",
     "dev": "nx run-many --target=dev --all --parallel",
     "test": "nx run-many --target=test --all",
     "lint": "nx run-many --target=lint --all",
     "typecheck": "nx run-many --target=typecheck --all",
     "clean": "nx reset",
+    "publish": "nx publish core",
     "publish:core": "nx publish core",
     "prepare": "husky"
   },
