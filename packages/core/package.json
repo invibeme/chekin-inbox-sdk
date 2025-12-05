@@ -1,7 +1,7 @@
 {
   "name": "@chekinapp/inbox-sdk",
   "version": "1.0.5",
-  "description": "Framework-agnostic Chekin SDK for host management",
+  "description": "Framework-agnostic Chekin SDK for inbox",
   "author": "vlad-svr",
   "license": "MIT",
   "repository": "invibeme/chekin-inbox-sdk",
@@ -25,7 +25,7 @@
   "keywords": [
     "chekin",
     "sdk",
-    "host",
+    "inbox",
     "management"
   ],
   "scripts": {

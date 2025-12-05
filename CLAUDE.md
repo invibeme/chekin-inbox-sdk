@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the **Chekin Host SDK** repository - a framework-agnostic monorepo for integrating Chekin's host management platform into web applications through secure iframe embedding.
+This is the **Chekin Inbox SDK** repository - a framework-agnostic monorepo for integrating Chekin's inbox platform into web applications through secure iframe embedding.
 
 ### Architecture
 
@@ -15,7 +15,7 @@ The project is a **Nx-based monorepo** with the following structure:
 ├── packages/
 │   ├── core/                    # @chekinapp/inbox-sdk (vanilla JS/TS, framework-agnostic)
 │   │   ├── src/
-│   │   │   ├── ChekinHostSDK.ts        # Main SDK class
+│   │   │   ├── ChekinInboxSDK.ts        # Main SDK class
 │   │   │   ├── communication/          # postMessage handling
 │   │   │   ├── utils/                  # Utilities (URL formatting, logging, validation)
 │   │   │   └── types/                  # TypeScript definitions
@@ -28,7 +28,7 @@ The project is a **Nx-based monorepo** with the following structure:
 
 ### Key Implemented Features
 
-- **ChekinHostSDK**: Main vanilla JS/TS class with iframe management, validation, logging
+- **ChekinInboxSDK**: Main vanilla JS/TS class with iframe management, validation, logging
 - **Communication Layer**: postMessage-based parent-iframe communication with event handling
 - **URL Management**: Smart URL formatting with length limits and postMessage fallback
 - **Security**: Proper iframe sandboxing with CSP compliance
@@ -65,7 +65,7 @@ The project is a **Nx-based monorepo** with the following structure:
 
 ## Core SDK Architecture
 
-### ChekinHostSDK Class (`packages/core/src/ChekinHostSDK.ts`)
+### ChekinInboxSDK Class (`packages/core/src/ChekinInboxSDK.ts`)
 
 Main SDK class providing:
 
@@ -90,9 +90,9 @@ Main SDK class providing:
 ## SDK Usage Patterns
 
 ```typescript
-import {ChekinHostSDK} from '@chekinapp/inbox-sdk';
+import {ChekinInboxSDK} from '@chekinapp/inbox-sdk';
 
-const sdk = new ChekinHostSDK({
+const sdk = new ChekinInboxSDK({
   apiKey: 'your-api-key',
   features: ['IV', 'LIVENESS_DETECTION'],
   autoHeight: true,

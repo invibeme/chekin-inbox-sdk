@@ -1,12 +1,12 @@
 # @chekinapp/inbox-sdk (Core Package)
 
-The core framework-agnostic SDK package for integrating Chekin's host management platform into web applications through secure iframe embedding.
+The core framework-agnostic SDK package for integrating Chekin's inbox platform into web applications through secure iframe embedding.
 
 > **Migrating from ChekinHousingsSDK?** See the [Migration Guide](https://github.com/invibeme/chekin-inbox-sdk/blob/main/MIGRATION_GUIDE.md) for step-by-step instructions.
 
 ## Overview
 
-This package provides the foundational `ChekinHostSDK` class that can be used in any JavaScript/TypeScript environment, regardless of framework. It handles iframe creation, secure communication via postMessage, configuration validation, and comprehensive logging.
+This package provides the foundational `ChekinInboxSDK` class that can be used in any JavaScript/TypeScript environment, regardless of framework. It handles iframe creation, secure communication via postMessage, configuration validation, and comprehensive logging.
 
 ## Key Features
 
@@ -27,9 +27,9 @@ yarn add @chekinapp/inbox-sdk
 ## Quick Start
 
 ```javascript
-import {ChekinHostSDK} from '@chekinapp/inbox-sdk';
+import {ChekinInboxSDK} from '@chekinapp/inbox-sdk';
 
-const sdk = new ChekinHostSDK({
+const sdk = new ChekinInboxSDK({
   apiKey: 'your-api-key',
   features: ['IV', 'LIVENESS_DETECTION'],
   autoHeight: true,
@@ -44,7 +44,7 @@ await sdk.render(document.getElementById('container'));
 
 ## Core Architecture
 
-### ChekinHostSDK Class (`src/ChekinHostSDK.ts`)
+### ChekinInboxSDK Class (`src/ChekinInboxSDK.ts`)
 
 Main SDK class providing:
 
@@ -78,7 +78,7 @@ Main SDK class providing:
 ### Constructor
 
 ```typescript
-new ChekinHostSDK(config: ChekinHostSDKConfig & { logger?: ChekinLoggerConfig })
+new ChekinInboxSDK(config: ChekinInboxSDKConfig & { logger?: ChekinLoggerConfig })
 ```
 
 ### Methods
@@ -89,7 +89,7 @@ new ChekinHostSDK(config: ChekinHostSDKConfig & { logger?: ChekinLoggerConfig })
 | ---------------- | ---------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
 | **render**       | `container: string \| HTMLElement`             | `Promise<HTMLIFrameElement>` | Renders the SDK iframe into the specified container. Accepts element ID (string) or HTMLElement reference |
 | **destroy**      | -                                              | `void`                       | Destroys the SDK instance, removes iframe from DOM, and cleans up event listeners                         |
-| **updateConfig** | `newConfig: Partial<ChekinHostSDKConfig>`      | `void`                       | Updates SDK configuration and sends changes to iframe. Validates new config before applying               |
+| **updateConfig** | `newConfig: Partial<ChekinInboxSDKConfig>`     | `void`                       | Updates SDK configuration and sends changes to iframe. Validates new config before applying               |
 | **on**           | `event: string, callback: ChekinEventCallback` | `void`                       | Adds event listener for SDK events. Supports all SDK event types with type-safe callbacks                 |
 | **off**          | `event: string, callback: ChekinEventCallback` | `void`                       | Removes specific event listener. Must pass same callback reference used in `on()`                         |
 
@@ -99,7 +99,7 @@ new ChekinHostSDK(config: ChekinHostSDKConfig & { logger?: ChekinLoggerConfig })
 
 - `render(container: string | HTMLElement): Promise<HTMLIFrameElement>`
 - `destroy(): void`
-- `updateConfig(newConfig: Partial<ChekinHostSDKConfig>): void`
+- `updateConfig(newConfig: Partial<ChekinInboxSDKConfig>): void`
 
 **Event Management**
 
@@ -142,7 +142,7 @@ new ChekinHostSDK(config: ChekinHostSDKConfig & { logger?: ChekinLoggerConfig })
 #### Configuration Interface
 
 ```typescript
-interface ChekinHostSDKConfig {
+interface ChekinInboxSDKConfig {
   // Required
   apiKey: string;
 
@@ -270,7 +270,7 @@ sdk.updateConfig({
 ```html
 <div id="chekin-container"></div>
 <script>
-  const sdk = new ChekinHostSDK({apiKey: 'your-key'});
+  const sdk = new ChekinInboxSDK({apiKey: 'your-key'});
   sdk.render('chekin-container');
 </script>
 ```
@@ -283,11 +283,11 @@ sdk.updateConfig({
 </template>
 
 <script>
-import {ChekinHostSDK} from '@chekinapp/inbox-sdk';
+import {ChekinInboxSDK} from '@chekinapp/inbox-sdk';
 
 export default {
   mounted() {
-    this.sdk = new ChekinHostSDK({apiKey: 'your-key'});
+    this.sdk = new ChekinInboxSDK({apiKey: 'your-key'});
     this.sdk.render(this.$refs.container);
   },
   beforeUnmount() {
@@ -301,17 +301,17 @@ export default {
 
 ```typescript
 import {Component, ElementRef, ViewChild, OnInit, OnDestroy} from '@angular/core';
-import {ChekinHostSDK} from '@chekinapp/inbox-sdk';
+import {ChekinInboxSDK} from '@chekinapp/inbox-sdk';
 
 @Component({
   template: '<div #container class="chekin-container"></div>',
 })
 export class ChekinComponent implements OnInit, OnDestroy {
   @ViewChild('container', {static: true}) container!: ElementRef;
-  private sdk!: ChekinHostSDK;
+  private sdk!: ChekinInboxSDK;
 
   ngOnInit() {
-    this.sdk = new ChekinHostSDK({apiKey: 'your-key'});
+    this.sdk = new ChekinInboxSDK({apiKey: 'your-key'});
     this.sdk.render(this.container.nativeElement);
   }
 

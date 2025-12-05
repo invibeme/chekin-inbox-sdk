@@ -1,6 +1,6 @@
 import {CHEKIN_EVENTS} from '../constants';
 
-export interface ChekinHostSDKConfig {
+export interface ChekinInboxSDKConfig {
   apiKey: string;
   baseUrl?: string;
   version?: string;

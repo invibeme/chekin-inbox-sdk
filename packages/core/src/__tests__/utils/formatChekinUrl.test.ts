@@ -1,9 +1,9 @@
 import {describe, it, expect} from 'vitest';
 import {formatChekinUrl} from '../../utils/formatChekinUrl';
-import {ChekinHostSDKConfig} from '../../types';
+import {ChekinInboxSDKConfig} from '../../types';
 
 describe('formatChekinUrl', () => {
-  const baseConfig: ChekinHostSDKConfig = {
+  const baseConfig: ChekinInboxSDKConfig = {
     apiKey: 'test-api-key',
   };
 
@@ -71,7 +71,7 @@ describe('formatChekinUrl', () => {
 
   describe('Essential parameters', () => {
     it('should add all essential parameters to URL', () => {
-      const config: ChekinHostSDKConfig = {
+      const config: ChekinInboxSDKConfig = {
         apiKey: 'test-key',
         defaultLanguage: 'en',
         autoHeight: true,
@@ -149,7 +149,7 @@ describe('formatChekinUrl', () => {
 
   describe('URL length limits', () => {
     it('should create minimal URL when exceeding safe limit', () => {
-      const config: ChekinHostSDKConfig = {
+      const config: ChekinInboxSDKConfig = {
         apiKey: 'test-key',
         defaultLanguage: 'en',
       };

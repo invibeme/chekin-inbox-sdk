@@ -1,4 +1,4 @@
-import {ChekinHostSDKConfig} from '../types';
+import {ChekinInboxSDKConfig} from '../types';
 
 const VersionMapper = {
   latest: 'latest',
@@ -23,11 +23,11 @@ const URL_LENGTH_LIMITS = {
 
 export interface UrlConfigResult {
   url: string;
-  postMessageConfig?: Partial<ChekinHostSDKConfig>;
+  postMessageConfig?: Partial<ChekinInboxSDKConfig>;
   isLengthLimited: boolean;
 }
 
-export function formatChekinUrl(config: ChekinHostSDKConfig): UrlConfigResult {
+export function formatChekinUrl(config: ChekinInboxSDKConfig): UrlConfigResult {
   const version = config.version || 'latest';
   const baseUrl = config.baseUrl || getBaseUrl(version);
 
@@ -52,7 +52,7 @@ export function formatChekinUrl(config: ChekinHostSDKConfig): UrlConfigResult {
     }
   });
 
-  let postMessageConfig: Partial<ChekinHostSDKConfig> = {};
+  let postMessageConfig: Partial<ChekinInboxSDKConfig> = {};
   let isLengthLimited = false;
 
   if (config.stylesLink) {

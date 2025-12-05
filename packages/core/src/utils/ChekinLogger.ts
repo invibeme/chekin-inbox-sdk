@@ -1,5 +1,5 @@
 import {LOG_LEVELS, type LogLevel} from '../constants';
-import {ChekinHostSDKConfig} from '../types';
+import {ChekinInboxSDKConfig} from '../types';
 
 export type {LogLevel};
 
@@ -27,7 +27,7 @@ export class ChekinLogger {
   constructor(config: ChekinLoggerConfig = {}) {
     this.config = {
       level: LOG_LEVELS.INFO,
-      prefix: '[Host SDK]',
+      prefix: '[Inbox SDK]',
       enabled: true,
       buffer: true,
       bufferSize: 100,
@@ -117,7 +117,7 @@ export class ChekinLogger {
   }
 
   // SDK Lifecycle logging methods
-  logMount(containerId: string, config?: ChekinHostSDKConfig): void {
+  logMount(containerId: string, config?: ChekinInboxSDKConfig): void {
     this.info(`SDK mounted to container: ${containerId}`, {config}, 'LIFECYCLE');
   }
 
@@ -137,7 +137,7 @@ export class ChekinLogger {
     this.debug(`Communication event: ${eventType}`, payload, 'COMMUNICATION');
   }
 
-  logConfigUpdate(newConfig: Partial<ChekinHostSDKConfig>): void {
+  logConfigUpdate(newConfig: Partial<ChekinInboxSDKConfig>): void {
     this.info(`Configuration updated`, newConfig, 'CONFIG');
   }
 

@@ -1,6 +1,6 @@
-# Chekin Host SDK
+# Chekin Inbox SDK
 
-A modern, framework-agnostic SDK for integrating Chekin's host management platform into your applications. Built with TypeScript and designed for security, performance, and developer experience.
+A modern, framework-agnostic SDK for integrating Chekin's inbox management platform into your applications. Built with TypeScript and designed for security, performance, and developer experience.
 
 > **Migrating from ChekinHousingsSDK?** See the [Migration Guide](./MIGRATION_GUIDE.md) for step-by-step instructions.
 
@@ -28,9 +28,9 @@ yarn add @chekinapp/inbox-sdk
 #### Vanilla JavaScript
 
 ```javascript
-import {ChekinHostSDK} from '@chekinapp/inbox-sdk';
+import {ChekinInboxSDK} from '@chekinapp/inbox-sdk';
 
-const sdk = new ChekinHostSDK({
+const sdk = new ChekinInboxSDK({
   apiKey: 'your-api-key',
   housingId: 'reservation-123',
 });
@@ -53,7 +53,7 @@ This repository contains multiple packages:
 │   Your App      │    │   NPM Package    │    │  Iframe App     │
 │                 │    │                  │    │                 │
 │  ┌───────────┐  │    │  ┌────────────┐  │    │  ┌───────────┐  │
-│  │Integration│  │◄──►│  │ChekinHost  │  │◄──►│  │ Host UI   │  │
+│  │Integration│  │◄──►│  │ChekinInbox │  │◄──►│  │ Inbox UI  │  │
 │  │Component  │  │    │  │    SDK     │  │    │  │ (React)   │  │
 │  └───────────┘  │    │  └────────────┘  │    │  └───────────┘  │
 │                 │    │        │         │    │                 │

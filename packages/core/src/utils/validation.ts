@@ -1,4 +1,4 @@
-import {ChekinHostSDKConfig} from '../types';
+import {ChekinInboxSDKConfig} from '../types';
 
 export interface ValidationError {
   field: string;
@@ -55,7 +55,7 @@ const SUPPORTED_CURRENCIES = [
 ] as const;
 
 export class ChekinSDKValidator {
-  public validateConfig(config: ChekinHostSDKConfig): ValidationResult {
+  public validateConfig(config: ChekinInboxSDKConfig): ValidationResult {
     const errors: ValidationError[] = [];
     const warnings: ValidationError[] = [];
 

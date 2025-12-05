@@ -1,6 +1,6 @@
 import {describe, it, expect, beforeEach} from 'vitest';
 import {ChekinSDKValidator} from '../../utils/validation';
-import {ChekinHostSDKConfig} from '../../types';
+import {ChekinInboxSDKConfig} from '../../types';
 
 describe('ChekinSDKValidator', () => {
   let validator: ChekinSDKValidator;
@@ -9,7 +9,7 @@ describe('ChekinSDKValidator', () => {
     validator = new ChekinSDKValidator();
   });
 
-  const createValidConfig = (): ChekinHostSDKConfig => ({
+  const createValidConfig = (): ChekinInboxSDKConfig => ({
     apiKey: 'valid-api-key-12345',
     baseUrl: 'https://api.example.com',
     version: '1.0.0',
@@ -35,7 +35,7 @@ describe('ChekinSDKValidator', () => {
       });
 
       it('should validate minimal valid configuration', () => {
-        const config: ChekinHostSDKConfig = {
+        const config: ChekinInboxSDKConfig = {
           apiKey: 'valid-api-key-12345',
         };
         const result = validator.validateConfig(config);
@@ -543,7 +543,7 @@ describe('ChekinSDKValidator', () => {
 
   describe('edge cases', () => {
     it('should handle undefined optional fields gracefully', () => {
-      const config: ChekinHostSDKConfig = {
+      const config: ChekinInboxSDKConfig = {
         apiKey: 'valid-api-key-12345',
         baseUrl: undefined,
         version: undefined,
@@ -563,7 +563,7 @@ describe('ChekinSDKValidator', () => {
     });
 
     it('should accumulate multiple errors and warnings', () => {
-      const config: ChekinHostSDKConfig = {
+      const config: ChekinInboxSDKConfig = {
         apiKey: 123 as unknown as string, // error
         baseUrl: 'invalid-url', // error
         version: 'invalid', // warning

@@ -9,10 +9,10 @@
     <meta name="theme-color" content="#161643" />
     <meta
       name="description"
-      content="Chekin Host SDK Sandbox - Test all configuration options"
+      content="Chekin Inbox SDK Sandbox - Test all configuration options"
     />
 
-    <title>Chekin Host SDK Sandbox</title>
+    <title>Chekin Inbox SDK Sandbox</title>
 
     <style>
       body {
@@ -218,7 +218,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Chekin Host SDK Sandbox</h1>
+      <h1>Chekin Inbox SDK Sandbox</h1>
 
       <div class="controls">
         <form id="sdkForm">
@@ -515,14 +515,6 @@
               <li><strong>onError</strong> - SDK errors</li>
               <li><strong>onConnectionError</strong> - Connection errors</li>
               <li>
-                <strong>onPoliceAccountConnection</strong> - Police account connection
-                events
-              </li>
-              <li>
-                <strong>onStatAccountConnection</strong> - Statistics account connection
-                events
-              </li>
-              <li>
                 <strong>onHeightChanged</strong> - Height changes (when autoHeight is
                 enabled)
               </li>
@@ -663,14 +655,18 @@
     <!-- Load Chekin SDK dynamically -->
     <script type="module">
       // Dynamic SDK loading variables
-      let ChekinHostSDK, formatChekinUrl, ChekinLogger, CHEKIN_EVENTS, ChekinSDKValidator;
+      let ChekinInboxSDK,
+        formatChekinUrl,
+        ChekinLogger,
+        CHEKIN_EVENTS,
+        ChekinSDKValidator;
       let sdk = null;
       let logsContainer;
       let logger;
       let isLoading = false;
       let sdkLoaded = false;
 
-      const STORAGE_KEY = 'chekin_host_sdk_sandbox_config';
+      const STORAGE_KEY = 'chekin_inbox_sdk_sandbox_config';
 
       // Button state management
       function setButtonLoading(buttonId, loading = true) {
@@ -750,7 +746,7 @@
         const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
         logsContainer.textContent += logEntry;
         logsContainer.scrollTop = logsContainer.scrollHeight;
-        console.log(`[Chekin Host SDK] ${message}`);
+        console.log(`[Chekin Inbox SDK] ${message}`);
       }
 
       // SDK Loading Functions
@@ -782,7 +778,7 @@
           log(`Loading SDK from: ${importUrl}`);
 
           const module = await import(importUrl);
-          ChekinHostSDK = module.ChekinHostSDK;
+          ChekinInboxSDK = module.ChekinInboxSDK;
           formatChekinUrl = module.formatChekinUrl;
           ChekinLogger = module.ChekinLogger;
           CHEKIN_EVENTS = module.CHEKIN_EVENTS;
@@ -904,82 +900,11 @@
           data[name] = document.getElementById(name).checked;
         });
 
-        // Handle features array - combine checkboxes and text input
-        const featuresArray = [];
-
-        // Add features from checkboxes
-        const featureCheckboxes = {
-          feature_iv: 'IV',
-          feature_liveness: 'LIVENESS_DETECTION',
-        };
-
         Object.keys(featureCheckboxes).forEach(checkboxId => {
           if (document.getElementById(checkboxId).checked) {
             featuresArray.push(featureCheckboxes[checkboxId]);
           }
         });
-
-        // Add features from text input
-        if (data.features) {
-          const textFeatures = data.features
-            .split(',')
-            .map(f => f.trim())
-            .filter(f => f);
-          featuresArray.push(...textFeatures);
-        }
-
-        // Remove duplicates and set the features array
-        if (featuresArray.length > 0) {
-          data.features = [...new Set(featuresArray)];
-        } else {
-          delete data.features;
-        }
-
-        // Handle hidden sections array
-        const hiddenSectionsArray = [];
-        const hiddenSectionCheckboxes = {
-          hidden_housing_police: 'housing_police',
-          hidden_housing_stat: 'housing_stat',
-          hidden_housing_documents: 'housing_documents',
-          hidden_identity_verification: 'identity_verification',
-        };
-
-        Object.keys(hiddenSectionCheckboxes).forEach(checkboxId => {
-          if (document.getElementById(checkboxId).checked) {
-            hiddenSectionsArray.push(hiddenSectionCheckboxes[checkboxId]);
-          }
-        });
-
-        if (hiddenSectionsArray.length > 0) {
-          data.hiddenSections = hiddenSectionsArray;
-        }
-
-        // Handle JSON configurations
-        if (data.hiddenFormFields) {
-          try {
-            data.hiddenFormFields = JSON.parse(data.hiddenFormFields);
-          } catch (e) {
-            try {
-              data.hiddenFormFields = new Function('return ' + data.hiddenFormFields)();
-            } catch (e2) {
-              log(`Invalid format in hiddenFormFields: ${e2.message}`, 'warn');
-              delete data.hiddenFormFields;
-            }
-          }
-        }
-
-        if (data.payServicesConfig) {
-          try {
-            data.payServicesConfig = JSON.parse(data.payServicesConfig);
-          } catch (e) {
-            try {
-              data.payServicesConfig = new Function('return ' + data.payServicesConfig)();
-            } catch (e2) {
-              log(`Invalid format in payServicesConfig: ${e2.message}`, 'warn');
-              delete data.payServicesConfig;
-            }
-          }
-        }
 
         // Handle version
         if (data.sdkVersion === 'custom' && data.customVersion) {
@@ -1007,7 +932,7 @@
           }
 
           // Load SDK if not already loaded or if source changed
-          if (!sdkLoaded || !ChekinHostSDK) {
+          if (!sdkLoaded || !ChekinInboxSDK) {
             await loadSDK();
           }
 
@@ -1022,13 +947,9 @@
             log(`Callback - Height changed: ${height}px`);
           config.onConnectionError = error =>
             log(`Callback - Connection error: ${error}`, 'error');
-          config.onPoliceAccountConnection = data =>
-            log(`Callback - Police account: ${JSON.stringify(data)}`);
-          config.onStatAccountConnection = data =>
-            log(`Callback - Stat account: ${JSON.stringify(data)}`);
 
           // Initialize the actual SDK
-          sdk = new ChekinHostSDK(config);
+          sdk = new ChekinInboxSDK(config);
 
           // Set up event listeners for all SDK events
           if (CHEKIN_EVENTS && Object.values) {
@@ -1052,12 +973,6 @@
                     break;
                   case CHEKIN_EVENTS.CONNECTION_ERROR:
                     log(`Connection error: ${JSON.stringify(data)}`, 'error');
-                    break;
-                  case CHEKIN_EVENTS.POLICE_ACCOUNT_CONNECTION:
-                    log(`Police account connection: ${JSON.stringify(data)}`);
-                    break;
-                  case CHEKIN_EVENTS.STAT_ACCOUNT_CONNECTION:
-                    log(`Stat account connection: ${JSON.stringify(data)}`);
                     break;
                   default:
                     log(`Event ${eventType}: ${JSON.stringify(data)}`, 'debug');
@@ -1117,22 +1032,6 @@
           for (let [key, value] of formData.entries()) {
             config[key] = value;
           }
-
-          // Handle checkboxes
-          const checkboxes = [
-            'autoHeight',
-            'routeSync',
-            'enableLogging',
-            'feature_iv',
-            'feature_liveness',
-            'hidden_housing_police',
-            'hidden_housing_stat',
-            'hidden_housing_documents',
-            'hidden_identity_verification',
-          ];
-          checkboxes.forEach(name => {
-            config[name] = document.getElementById(name).checked;
-          });
 
           // Save to localStorage
           localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
@@ -1211,7 +1110,7 @@
             populateForm(config);
             updateSDKUrl();
             updateUrlPreview();
-            log('Host SDK Sandbox loaded. Configuration restored from localStorage.');
+            log('Inbox SDK Sandbox loaded. Configuration restored from localStorage.');
           } catch (error) {
             log('Failed to load saved configuration, using defaults:', error.message);
             populateForm(defaultConfig);
@@ -1223,7 +1122,7 @@
           updateSDKSource();
           updateSDKUrl();
           updateUrlPreview();
-          log('Host SDK Sandbox loaded with default configuration.');
+          log('Inbox SDK Sandbox loaded with default configuration.');
         }
 
         // Add event listeners

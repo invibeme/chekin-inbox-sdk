@@ -1,5 +1,5 @@
 export const CHEKIN_ROOT_IFRAME_ID = 'chekin-inbox-sdk-iframe';
-export const CHEKIN_IFRAME_TITLE = 'Chekin Host SDK';
+export const CHEKIN_IFRAME_TITLE = 'Chekin Inbox SDK';
 export const CHEKIN_IFRAME_NAME = 'chekin-inbox-sdk-frame';
 
 export const CHEKIN_EVENTS = {

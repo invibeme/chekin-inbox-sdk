@@ -1,5 +1,5 @@
 // Main SDK export
-export {ChekinHostSDK} from './ChekinHostSDK';
+export {ChekinInboxSDK} from './ChekinInboxSDK';
 
 // Communication utilities
 export {ChekinCommunicator} from './communication/ChekinCommunicator.js';
@@ -20,7 +20,7 @@ export {
 
 // Type definitions
 export type {
-  ChekinHostSDKConfig,
+  ChekinInboxSDKConfig,
   ChekinMessage,
   ChekinEventType,
   ChekinEventCallback,

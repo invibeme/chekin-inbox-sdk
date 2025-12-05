@@ -1,4 +1,4 @@
-import {ChekinMessage, ChekinEventCallback, ChekinHostSDKConfig} from '../types';
+import {ChekinMessage, ChekinEventCallback, ChekinInboxSDKConfig} from '../types';
 import {ChekinLogger} from '../utils/ChekinLogger.js';
 import {CHEKIN_EVENTS} from '../constants';
 import {PACKAGE_INFO} from '../utils/packageInfo.js';
@@ -6,7 +6,7 @@ import {PACKAGE_INFO} from '../utils/packageInfo.js';
 export class ChekinCommunicator {
   private iframe: HTMLIFrameElement;
   private eventListeners: Map<string, ChekinEventCallback[]> = new Map();
-  private config: ChekinHostSDKConfig;
+  private config: ChekinInboxSDKConfig;
   private logger: ChekinLogger;
   private currentRoute: string = '#/';
   private routeSyncEnabled: boolean = true;
@@ -14,7 +14,7 @@ export class ChekinCommunicator {
 
   constructor(
     iframe: HTMLIFrameElement,
-    config: ChekinHostSDKConfig,
+    config: ChekinInboxSDKConfig,
     logger: ChekinLogger,
   ) {
     this.iframe = iframe;
