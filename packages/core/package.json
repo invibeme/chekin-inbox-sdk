@@ -1,11 +1,12 @@
 {
   "name": "@chekinapp/inbox-sdk",
-  "version": "1.0.5",
+  "version": "0.1.0",
   "description": "Framework-agnostic Chekin SDK for inbox",
   "author": "vlad-svr",
   "license": "MIT",
   "repository": "invibeme/chekin-inbox-sdk",
   "type": "module",
+  "private": false,
   "publishConfig": {
     "access": "public"
   },
