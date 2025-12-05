@@ -2,8 +2,6 @@
 
 The core framework-agnostic SDK package for integrating Chekin's inbox platform into web applications through secure iframe embedding.
 
-> **Migrating from ChekinHousingsSDK?** See the [Migration Guide](https://github.com/invibeme/chekin-inbox-sdk/blob/main/MIGRATION_GUIDE.md) for step-by-step instructions.
-
 ## Overview
 
 This package provides the foundational `ChekinInboxSDK` class that can be used in any JavaScript/TypeScript environment, regardless of framework. It handles iframe creation, secure communication via postMessage, configuration validation, and comprehensive logging.

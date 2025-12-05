@@ -152,12 +152,6 @@ connect-src https://api.chekin.com;
 
 - **Core Package**: `@chekinapp/inbox-sdk` (published to npm)
 
-### Migration from Legacy SDK
-
-- See `MIGRATION_GUIDE.md` for detailed migration instructions from `ChekinHousingsSDK`
-- Key changes: Class name, method names (`renderApp` → `render`, `unmount` → `destroy`)
-- CDN-based loading → NPM package installation
-
 ### Event System
 
 Events use a prefixed naming convention (`chekin:*`) defined in `packages/core/src/constants/index.ts`:

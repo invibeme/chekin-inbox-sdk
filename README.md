@@ -2,8 +2,6 @@
 
 A modern, framework-agnostic SDK for integrating Chekin's inbox platform into your applications. Built with TypeScript and designed for security, performance, and developer experience.
 
-> **Migrating from ChekinHousingsSDK?** See the [Migration Guide](./MIGRATION_GUIDE.md) for step-by-step instructions.
-
 ## Features
 
 - 🚀 **Framework Agnostic** - Works with vanilla JavaScript, React, Vue, Angular, and more
@@ -177,7 +175,6 @@ yarn typecheck
 
 For detailed API documentation and examples:
 
-- **[Migration Guide](./MIGRATION_GUIDE.md)** - Step-by-step migration from ChekinHousingsSDK
 - **[Core SDK Documentation](./packages/core/README.md)** - Complete guide to the framework-agnostic SDK
 - **[Project Architecture](./CLAUDE.md)** - Developer guide and architecture overview
 
