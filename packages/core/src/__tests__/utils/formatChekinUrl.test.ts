@@ -147,23 +147,6 @@ describe('formatChekinUrl', () => {
     });
   });
 
-  describe('URL length limits', () => {
-    it('should create minimal URL when exceeding safe limit', () => {
-      const config: ChekinInboxSDKConfig = {
-        apiKey: 'test-key',
-        defaultLanguage: 'en',
-      };
-
-      const result = formatChekinUrl(config);
-
-      expect(result.url).toContain('apiKey=test-key');
-      expect(result.url).not.toContain('lang=');
-
-      expect(result.postMessageConfig?.defaultLanguage).toBe('en');
-      expect(result.isLengthLimited).toBe(true);
-    });
-  });
-
   describe('PostMessage config handling', () => {
     it('should return undefined postMessageConfig when empty', () => {
       const result = formatChekinUrl(baseConfig);

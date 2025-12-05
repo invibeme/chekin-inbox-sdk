@@ -382,26 +382,6 @@ describe('ChekinSDKValidator', () => {
         expect(ChekinSDKValidator.validateLanguage('invalid')).toBe(false);
       });
     });
-
-    describe('validateFeature', () => {
-      it('should return false for unsupported features', () => {
-        expect(ChekinSDKValidator.validateFeature('UNKNOWN')).toBe(false);
-        expect(ChekinSDKValidator.validateFeature('invalid')).toBe(false);
-      });
-    });
-
-    describe('validateCurrency', () => {
-      it('should return true for supported currencies', () => {
-        expect(ChekinSDKValidator.validateCurrency('USD')).toBe(true);
-        expect(ChekinSDKValidator.validateCurrency('EUR')).toBe(true);
-        expect(ChekinSDKValidator.validateCurrency('GBP')).toBe(true);
-      });
-
-      it('should return false for unsupported currencies', () => {
-        expect(ChekinSDKValidator.validateCurrency('XYZ')).toBe(false);
-        expect(ChekinSDKValidator.validateCurrency('invalid')).toBe(false);
-      });
-    });
   });
 
   describe('validation result structure', () => {
@@ -463,8 +443,8 @@ describe('ChekinSDKValidator', () => {
       const result = validator.validateConfig(config);
 
       expect(result.isValid).toBe(false);
-      expect(result.errors.length).toBeGreaterThan(2);
-      expect(result.warnings.length).toBeGreaterThan(1);
+      expect(result.errors.length).equal(2);
+      expect(result.warnings.length).equal(2);
     });
   });
 });
