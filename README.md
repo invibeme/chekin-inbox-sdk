@@ -1,6 +1,6 @@
 # Chekin Inbox SDK
 
-A modern, framework-agnostic SDK for integrating Chekin's inbox management platform into your applications. Built with TypeScript and designed for security, performance, and developer experience.
+A modern, framework-agnostic SDK for integrating Chekin's inbox platform into your applications. Built with TypeScript and designed for security, performance, and developer experience.
 
 > **Migrating from ChekinHousingsSDK?** See the [Migration Guide](./MIGRATION_GUIDE.md) for step-by-step instructions.
 
