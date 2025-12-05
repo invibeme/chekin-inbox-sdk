@@ -24,22 +24,22 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --immutable
 
       - name: Run lint
-        run: npm run lint
+        run: yarn lint
 
       - name: Run type check
-        run: npm run typecheck
+        run: yarn typecheck
 
       - name: Run tests
-        run: npm run test
+        run: yarn test
 
       - name: Build packages
-        run: npm run build
+        run: yarn build
 
       - name: Cache build artifacts
         uses: actions/cache@v4
@@ -47,6 +47,6 @@ jobs:
           path: |
             dist
             packages/*/dist
-          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}-${{ github.sha }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}-
