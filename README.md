@@ -32,7 +32,6 @@ import {ChekinInboxSDK} from '@chekinapp/inbox-sdk';
 
 const sdk = new ChekinInboxSDK({
   apiKey: 'your-api-key',
-  housingId: 'reservation-123',
 });
 
 sdk.render('chekin-container').then(() => {
@@ -75,9 +74,6 @@ For a complete list of all configuration parameters with detailed descriptions, 
 ```javascript
 {
   apiKey: 'your-api-key',          // Required: Your Chekin API key
-  features: ['IV'],                // Optional: Enabled features
-  mode: 'ALL',                // Optional: Enabled features
-  housingId: 'housing-123',        // Optional: Pre-select housing
   defaultLanguage: 'en'            // Optional: Default language
 }
 ```
@@ -92,10 +88,6 @@ For a complete list of all configuration parameters with detailed descriptions, 
   stylesLink: 'https://yoursite.com/custom.css',  // External stylesheet
   autoHeight: true,                // Auto-adjust iframe height
   enableLogging: false,            // Disable SDK logging (default). It is needed for debugging.
-  hiddenSections: ['housing_police'],    // Hide specific sections
-  hiddenFormFields: {              // Hide specific form fields
-    housingInfo: ['field1', 'field2']
-  },
   onHeightChanged: height => {
     console.log('Height changed:', height);
   },
@@ -105,12 +97,6 @@ For a complete list of all configuration parameters with detailed descriptions, 
   onConnectionError: error => {
     console.error('Connection Error:', error);
   },
-  onPoliceAccountConnection: data => {
-    console.log('Police account connected:', data);
-  },
-  onStatAccountConnection: data => {
-    console.log('Stat account connected:', data);
-  }
 }
 ```
 

@@ -164,111 +164,6 @@ describe('ChekinSDKValidator', () => {
       });
     });
 
-    describe('features validation', () => {
-      it('should accept valid features array', () => {
-        const config = {...createValidConfig(), features: ['IV']};
-        const result = validator.validateConfig(config);
-
-        expect(result.isValid).toBe(true);
-        expect(result.errors).toHaveLength(0);
-      });
-
-      it('should reject non-array features', () => {
-        const config = {...createValidConfig(), features: 'IV' as unknown as string[]};
-        const result = validator.validateConfig(config);
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContainEqual({
-          field: 'features',
-          message: 'Features must be an array',
-          value: 'IV',
-        });
-      });
-
-      it('should reject non-string feature items', () => {
-        const config = {
-          ...createValidConfig(),
-          features: [123, 'IV'] as unknown as string[],
-        };
-        const result = validator.validateConfig(config);
-
-        expect(result.isValid).toBe(false);
-        expect(result.errors).toContainEqual({
-          field: 'features[0]',
-          message: 'Each feature must be a string',
-          value: 123,
-        });
-      });
-
-      it('should warn about unknown features', () => {
-        const config = {...createValidConfig(), features: ['UNKNOWN_FEATURE']};
-        const result = validator.validateConfig(config);
-
-        expect(result.isValid).toBe(true);
-        expect(result.warnings).toContainEqual({
-          field: 'features[0]',
-          message: 'Unknown feature "UNKNOWN_FEATURE". Supported features: IV',
-          value: 'UNKNOWN_FEATURE',
-        });
-      });
-    });
-
-    describe('ID validation', () => {
-      const idFields = ['housingId', 'externalHousingId', 'reservationId'];
-
-      idFields.forEach(fieldName => {
-        describe(`${fieldName}`, () => {
-          it('should accept valid string ID', () => {
-            const config = {...createValidConfig(), [fieldName]: 'valid-id-123'};
-            const result = validator.validateConfig(config);
-
-            expect(result.isValid).toBe(true);
-            expect(result.errors).toHaveLength(0);
-          });
-
-          it('should reject non-string ID', () => {
-            const config = {
-              ...createValidConfig(),
-              [fieldName]: 12345 as unknown as string,
-            };
-            const result = validator.validateConfig(config);
-
-            expect(result.isValid).toBe(false);
-            expect(result.errors).toContainEqual({
-              field: fieldName,
-              message: `${fieldName} must be a string`,
-              value: 12345,
-            });
-          });
-
-          it('should reject empty string ID', () => {
-            const config = {...createValidConfig(), [fieldName]: ''};
-            const result = validator.validateConfig(config);
-
-            expect(result.isValid).toBe(false);
-            expect(result.errors).toContainEqual({
-              field: fieldName,
-              message: `${fieldName} cannot be empty`,
-              value: '',
-            });
-          });
-
-          it('should warn about very long ID', () => {
-            const longId = 'x'.repeat(101);
-            const config = {...createValidConfig(), [fieldName]: longId};
-            const result = validator.validateConfig(config);
-
-            expect(result.isValid).toBe(true);
-            expect(result.warnings).toContainEqual({
-              field: fieldName,
-              message: `${fieldName} is unusually long (101 characters)`,
-              value: 101,
-            });
-          });
-        });
-      });
-    });
-
     describe('defaultLanguage validation', () => {
       it('should accept supported language', () => {
         const config = {...createValidConfig(), defaultLanguage: 'es'};
@@ -489,10 +384,6 @@ describe('ChekinSDKValidator', () => {
     });
 
     describe('validateFeature', () => {
-      it('should return true for supported features', () => {
-        expect(ChekinSDKValidator.validateFeature('IV')).toBe(true);
-      });
-
       it('should return false for unsupported features', () => {
         expect(ChekinSDKValidator.validateFeature('UNKNOWN')).toBe(false);
         expect(ChekinSDKValidator.validateFeature('invalid')).toBe(false);

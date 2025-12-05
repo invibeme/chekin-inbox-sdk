@@ -31,7 +31,6 @@ import {ChekinInboxSDK} from '@chekinapp/inbox-sdk';
 
 const sdk = new ChekinInboxSDK({
   apiKey: 'your-api-key',
-  features: ['IV', 'LIVENESS_DETECTION'],
   autoHeight: true,
   onHeightChanged: height => console.log(`Height: ${height}px`),
 });
@@ -110,34 +109,18 @@ new ChekinInboxSDK(config: ChekinInboxSDKConfig & { logger?: ChekinLoggerConfig 
 
 #### Complete Parameters Table
 
-| Parameter                                | Type                                                                               | Required | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ---------------------------------------- | ---------------------------------------------------------------------------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **apiKey**                               | `string`                                                                           | ✅       | -       | API key created in the Chekin dashboard.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| **features**                             | `string[]`                                                                         | ❌       | `[]`    | Enable specific SDK features: `['reservations', 'guests', 'documents', 'payments', 'messaging']`                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| **housingId**                            | `string`                                                                           | ❌       | -       | ID of the particular housing/property to pre-select. If this param or externalHousingId is passed then the properties list will be unavailable. You will get directly to the property setting view. Make sure that you have generated a correct apiKey for your usage                                                                                                                                                                                                                                                        |
-| **externalHousingId**                    | `string`                                                                           | ❌       | -       | External housing ID for PMS integrations and third-party systems. Note, if you pass externalHousingId and housingId then the housingId will have more priority and externalHousingId will be ignored. Make sure that you have generated a correct apiKey for your usage                                                                                                                                                                                                                                                      |
-| **reservationId**                        | `string`                                                                           | ❌       | -       | ID of specific reservation to pre-load in the SDK                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| **defaultLanguage**                      | `string`                                                                           | ❌       | `'en'`  | Default interface language. Supported: `'en', 'es', 'it', 'pt', 'de', 'fr'`                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| **styles**                               | `string`                                                                           | ❌       | -       | CSS styles injected into the SDK iframe for custom theming                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| **stylesLink**                           | `string`                                                                           | ❌       | -       | URL to external CSS stylesheet for advanced customization                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| **autoHeight**                           | `boolean`                                                                          | ❌       | `true`  | Automatically adjust iframe height based on content                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| **enableLogging**                        | `boolean`                                                                          | ❌       | `false` | Enable SDK internal logging (logs are disabled by default)                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| **routeSync**                            | `boolean`                                                                          | ❌       | `true`  | Enable route synchronization between parent and iframe URL states                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| **hiddenSections**                       | `'housing_police', 'housing_stat', 'housing_documents', 'identity_verification'[]` | ❌       | `[]`    | Hide entire sections by name (e.g., `['housing_police', 'housing_stat', 'housing_documents', 'identity_verification']`)                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **hiddenFormFields**                     | `object`                                                                           | ❌       | `{}`    | Hide specific form fields by section                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **hiddenFormFields.housingInfo**         | `string[]`                                                                         | ❌       | `[]`    | Hide housing information form fields                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **hiddenFormFields.housingPolice**       | `string[]`                                                                         | ❌       | `[]`    | Hide police registration form fields                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **hiddenFormFields.housingStat**         | `string[]`                                                                         | ❌       | `[]`    | Hide statistics form fields                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| **hiddenFormFields.guestbookGeneration** | `string[]`                                                                         | ❌       | `[]`    | Hide guestbook generation form fields                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| **payServicesConfig**                    | `object`                                                                           | ❌       | `{}`    | Payment services configuration                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| **payServicesConfig.currency**           | `string`                                                                           | ❌       | -       | Currency code for payment services (e.g., 'EUR', 'USD')                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **payServicesConfig.liveness**           | `object`                                                                           | ❌       | `{}`    | Liveness detection configuration                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| **payServicesConfig.liveness.price**     | `number`                                                                           | ❌       | -       | Price for liveness detection service                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| **onHeightChanged**                      | `function`                                                                         | ❌       | -       | Callback when iframe height changes. Receives `(height: number)`                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| **onError**                              | `function`                                                                         | ❌       | -       | Error callback. Receives `(error: { message: string; code?: string })`                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| **onConnectionError**                    | `function`                                                                         | ❌       | -       | Connection/network error callback. Receives `(error: any)`                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| **onPoliceAccountConnection**            | `function`                                                                         | ❌       | -       | This callback will be called with the following arguments: 1. state, possible values: - CONNECTED - If the police feature is activated/connected. Also it will be called if police type is changed. It’s like reconnection to a new police account. - DISCONNECTED - if the police feature is deactivated/disconnected. - CONNECTION_ERROR - if there is an error with the connection. - DISCONNECTION_ERROR - if there is an error with the disconnection. - CONNECTION_VALIDATION_FAILED - if there is a validation error. |
-| **onStatAccountConnection**              | `function`                                                                         | ❌       | -       | This callback will be called with the following arguments: 1. state, possible values: - CONNECTED - If the stat feature is activated/connected. Also it will be called if stat type is changed. It’s like reconnection to a new stat account. - DISCONNECTED - if the stat feature is deactivated/disconnected. - CONNECTION_ERROR - if there is an error with the connection. - DISCONNECTION_ERROR - if there is an error with the disconnection. - CONNECTION_VALIDATION_FAILED - if there is a validation error.         |
+| Parameter             | Type       | Required | Default | Description                                                                 |
+| --------------------- | ---------- | -------- | ------- | --------------------------------------------------------------------------- |
+| **apiKey**            | `string`   | ✅       | -       | API key created in the Chekin dashboard.                                    |
+| **defaultLanguage**   | `string`   | ❌       | `'en'`  | Default interface language. Supported: `'en', 'es', 'it', 'pt', 'de', 'fr'` |
+| **styles**            | `string`   | ❌       | -       | CSS styles injected into the SDK iframe for custom theming                  |
+| **stylesLink**        | `string`   | ❌       | -       | URL to external CSS stylesheet for advanced customization                   |
+| **autoHeight**        | `boolean`  | ❌       | `true`  | Automatically adjust iframe height based on content                         |
+| **enableLogging**     | `boolean`  | ❌       | `false` | Enable SDK internal logging (logs are disabled by default)                  |
+| **routeSync**         | `boolean`  | ❌       | `true`  | Enable route synchronization between parent and iframe URL states           |
+| **onHeightChanged**   | `function` | ❌       | -       | Callback when iframe height changes. Receives `(height: number)`            |
+| **onError**           | `function` | ❌       | -       | Error callback. Receives `(error: { message: string; code?: string })`      |
+| **onConnectionError** | `function` | ❌       | -       | Connection/network error callback. Receives `(error: any)`                  |
 
 #### Configuration Interface
 
@@ -149,40 +132,23 @@ interface ChekinInboxSDKConfig {
   // Optional Core Settings
   baseUrl?: string;
   version?: string;
-  features?: string[];
 
   // Context
-  housingId?: string;
-  externalHousingId?: string;
-  reservationId?: string;
   defaultLanguage?: string;
 
   // UI Customization
   styles?: string;
   stylesLink?: string;
   autoHeight?: boolean;
-  hiddenSections?: string[];
-  hiddenFormFields?: {
-    housingInfo?: string[];
-    housingPolice?: string[];
-    housingStat?: string[];
-    guestbookGeneration?: string[];
-  };
 
   // Advanced
   enableLogging?: boolean;
   routeSync?: boolean;
-  payServicesConfig?: {
-    currency?: string;
-    liveness?: {price?: number};
-  };
 
   // Event Callbacks
   onHeightChanged?: (height: number) => void;
   onError?: (error: {message: string; code?: string}) => void;
   onConnectionError?: (error: any) => void;
-  onPoliceAccountConnection?: (data: any) => void;
-  onStatAccountConnection?: (data: any) => void;
 }
 ```
 
@@ -193,8 +159,6 @@ interface ChekinInboxSDKConfig {
 ```javascript
 {
   apiKey: 'pk_live_your_api_key',
-  features: ['IV', 'LIVENESS_DETECTION'],
-  housingId: 'housing-123',
   defaultLanguage: 'en'
 }
 ```
@@ -205,24 +169,12 @@ interface ChekinInboxSDKConfig {
 {
   apiKey: 'pk_live_your_api_key',
   version: '1.6.2',
-  features: ['IV', 'LIVENESS_DETECTION'],
-  housingId: 'housing-123',
-  externalHousingId: 'pms-property-456',
   defaultLanguage: 'es',
   styles: `
     .primary-button { background: #007cba; }
     .container { max-width: 800px; }
   `,
   autoHeight: true,
-  hiddenSections: ['housing_police'],
-  hiddenFormFields: {
-    housingInfo: ['optional-field-1'],
-    housingPolice: ['non-required-field']
-  },
-  payServicesConfig: {
-    currency: 'EUR',
-    liveness: { price: 5.00 }
-  },
   onHeightChanged: (height) => console.log(`Height: ${height}px`),
   onError: (error) => console.error('SDK Error:', error)
 }
@@ -258,7 +210,6 @@ sdk.on('error', error => {
 ```javascript
 // Update configuration after initialization
 sdk.updateConfig({
-  features: ['IV', 'LIVENESS_DETECTION'],
   styles: 'body { background: #f5f5f5; }',
 });
 ```

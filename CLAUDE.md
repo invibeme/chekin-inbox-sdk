@@ -94,7 +94,6 @@ import {ChekinInboxSDK} from '@chekinapp/inbox-sdk';
 
 const sdk = new ChekinInboxSDK({
   apiKey: 'your-api-key',
-  features: ['IV', 'LIVENESS_DETECTION'],
   autoHeight: true,
   onHeightChanged: height => console.log(`Height: ${height}px`),
 });

@@ -29,31 +29,6 @@ const SUPPORTED_LANGUAGES = [
   'ca',
 ] as const;
 
-const SUPPORTED_FEATURES = ['IV'] as const;
-
-const SUPPORTED_CURRENCIES = [
-  'USD',
-  'EUR',
-  'GBP',
-  'JPY',
-  'AUD',
-  'CAD',
-  'CHF',
-  'CNY',
-  'SEK',
-  'NZD',
-  'MXN',
-  'SGD',
-  'HKD',
-  'NOK',
-  'TRY',
-  'ZAR',
-  'BRL',
-  'INR',
-  'KRW',
-  'PLN',
-] as const;
-
 export class ChekinSDKValidator {
   public validateConfig(config: ChekinInboxSDKConfig): ValidationResult {
     const errors: ValidationError[] = [];
@@ -231,15 +206,5 @@ export class ChekinSDKValidator {
 
   public static validateLanguage(lang: string): boolean {
     return SUPPORTED_LANGUAGES.includes(lang as (typeof SUPPORTED_LANGUAGES)[number]);
-  }
-
-  public static validateFeature(feature: string): boolean {
-    return SUPPORTED_FEATURES.includes(feature as (typeof SUPPORTED_FEATURES)[number]);
-  }
-
-  public static validateCurrency(currency: string): boolean {
-    return SUPPORTED_CURRENCIES.includes(
-      currency as (typeof SUPPORTED_CURRENCIES)[number],
-    );
   }
 }
