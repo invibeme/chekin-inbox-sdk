@@ -1,0 +1,48 @@
+{
+  "name": "@chekinapp/inbox-sdk",
+  "version": "1.0.5",
+  "description": "Framework-agnostic Chekin SDK for host management",
+  "author": "vlad-svr",
+  "license": "MIT",
+  "repository": "invibeme/chekin-inbox-sdk",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "chekin",
+    "sdk",
+    "host",
+    "management"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "prepublishOnly": "nx build core"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tslib": "^2.3.0",
+    "@vitest/coverage-v8": "^3.0.0",
+    "jsdom": "~22.1.0",
+    "tsup": "^8.0.0",
+    "vitest": "^3.0.0"
+  }
+}

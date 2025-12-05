@@ -1,0 +1,6 @@
+if [ "$(git rev-parse -q --verify MERGE_HEAD)" != "" ] || [ "$(git rev-parse -q --verify REBASE_HEAD)" != "" ] || [ "$(git rev-parse -q --verify REVERT_HEAD)" != "" ] || [ "$(git rev-parse -q --verify CHERRY_PICK_HEAD)" != "" ]
+then
+    exit 0;
+fi
+
+npx lint-staged

@@ -1,0 +1,28 @@
+{
+  "name": "@chekin/eslint-config",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Shared ESLint configuration for Chekin projects",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "globals": "^15.0.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "eslint",
+    "config",
+    "typescript",
+    "chekin"
+  ],
+  "author": "vlad-svr",
+  "license": "MIT"
+}

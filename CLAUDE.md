@@ -1,0 +1,203 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is the **Chekin Host SDK** repository - a framework-agnostic monorepo for integrating Chekin's host management platform into web applications through secure iframe embedding.
+
+### Architecture
+
+The project is a **Nx-based monorepo** with the following structure:
+
+```
+@chekinapp/inbox-sdk/
+├── packages/
+│   ├── core/                    # @chekinapp/inbox-sdk (vanilla JS/TS, framework-agnostic)
+│   │   ├── src/
+│   │   │   ├── ChekinHostSDK.ts        # Main SDK class
+│   │   │   ├── communication/          # postMessage handling
+│   │   │   ├── utils/                  # Utilities (URL formatting, logging, validation)
+│   │   │   └── types/                  # TypeScript definitions
+│   │   └── sandbox.html               # Development sandbox
+│   └── react/                   # @chekinapp/inbox-sdk-react (React components)
+│       ├── src/components/             # ChekinHostSDKView
+│       └── src/hooks/                  # useHostSDKEventListener
+├── docs/                        # API documentation
+├── dist/                        # Build outputs
+└── nx.json                     # Nx workspace configuration
+```
+
+### Key Implemented Features
+
+- **ChekinHostSDK**: Main vanilla JS/TS class with iframe management, validation, logging
+- **Communication Layer**: postMessage-based parent-iframe communication with event handling
+- **URL Management**: Smart URL formatting with length limits and postMessage fallback
+- **React Components**: ChekinHostSDKView with ref support and event handling hooks
+- **Security**: Proper iframe sandboxing with CSP compliance
+- **Logging & Validation**: Comprehensive error handling and configuration validation
+
+## Development Commands
+
+**Setup:**
+
+- `npm install` - Install dependencies
+- `nx reset` - Reset Nx cache
+
+**Build Commands:**
+
+- `npm run build` - Build all packages (uses Nx)
+- `npm run build:core` - Build core SDK only
+- `npm run build:react` - Build React package only
+- `npm run build:inbox-sdk` - Build host SDK app
+
+**Development:**
+
+- `npm run dev` - Start all development servers in parallel
+- `nx dev core` - Start core package development
+- `nx dev react` - Start React package development
+
+**Quality Assurance:**
+
+- `npm run test` - Run all tests
+- `npm run lint` - Lint all packages
+- `npm run typecheck` - TypeScript type checking across all packages
+
+**Single Package Testing:**
+
+- `cd packages/core && npm run test` - Run core package tests
+- `cd packages/core && npm run test:watch` - Run tests in watch mode
+- `cd packages/core && npm run test:coverage` - Run tests with coverage
+
+## Core SDK Architecture
+
+### ChekinHostSDK Class (`packages/core/src/ChekinHostSDK.ts`)
+
+Main SDK class providing:
+
+- **Iframe Management**: Creation, sandboxing, lifecycle management
+- **Configuration Validation**: Runtime validation with detailed error reporting
+- **Event System**: postMessage-based communication with type-safe event handling
+- **Route Synchronization**: URL sync between parent and iframe
+- **Logging**: Comprehensive logging system with remote log shipping
+
+### Communication Layer (`packages/core/src/communication/`)
+
+- **ChekinCommunicator**: Handles postMessage protocol between parent and iframe
+- **Event Types**: Defined in constants (HEIGHT_CHANGED, ERROR, CONFIG_UPDATE, etc.)
+- **Security**: Origin validation and message sanitization
+
+### URL Management (`packages/core/src/utils/formatChekinUrl.ts`)
+
+- **Smart URL Building**: Handles query parameter limits (2048 chars)
+- **PostMessage Fallback**: Large configs sent via postMessage after iframe load
+- **Version Support**: Optional version pinning or latest deployment
+
+## React Components
+
+### Core Components (`packages/react/src/components/`)
+
+- **ChekinHostSDKView**: Main React component with ref support for direct SDK access
+
+### Hooks (`packages/react/src/hooks/`)
+
+- **useHostSDKEventListener**: Event listener hook with automatic cleanup and type safety
+
+## SDK Usage Patterns
+
+### Basic Initialization
+
+```typescript
+import {ChekinHostSDK} from '@chekinapp/inbox-sdk';
+
+const sdk = new ChekinHostSDK({
+  apiKey: 'your-api-key',
+  features: ['IV', 'LIVENESS_DETECTION'],
+  autoHeight: true,
+  onHeightChanged: height => console.log(`Height: ${height}px`),
+});
+
+await sdk.render('container-element');
+```
+
+### React Integration
+
+```jsx
+import {ChekinHostSDKView} from '@chekinapp/inbox-sdk-react';
+
+<ChekinHostSDKView
+  apiKey="your-api-key"
+  features={['IV']}
+  onHeightChanged={height => console.log(height)}
+/>;
+```
+
+## Testing & Development
+
+### Sandbox Environment
+
+- `packages/core/sandbox.html` - Development sandbox for testing core SDK
+- Accessible via local development server for rapid testing
+
+### Test Structure
+
+- Tests use **Vitest** with jsdom environment
+- Test files located in `packages/core/src/__tests__/`
+- Setup file: `packages/core/src/__tests__/setup.ts`
+- Coverage configured with v8 provider
+
+### Build System
+
+- **Nx**: Monorepo orchestration with caching and parallel builds
+- **TSUP**: Fast TypeScript bundling for packages
+- **ESLint**: Consistent code style across packages
+- **Prettier**: Code formatting with lint-staged
+- **Husky**: Pre-commit hooks for code quality
+
+## Security Considerations
+
+### Iframe Sandboxing
+
+```html
+<iframe
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+></iframe>
+```
+
+### CSP Requirements
+
+```
+frame-src https://sdk.chekin.com;
+connect-src https://api.chekin.com;
+```
+
+### API Key Management
+
+- Validate keys before iframe creation
+- Never log actual API keys (use redacted placeholders)
+- Support both test and production key formats
+
+## Important Notes
+
+### Package Names
+
+- **Core Package**: `@chekinapp/inbox-sdk` (published to npm)
+- **React Package**: `@chekinapp/inbox-sdk-react` (in development, not yet on npm)
+
+### Migration from Legacy SDK
+
+- See `MIGRATION_GUIDE.md` for detailed migration instructions from `ChekinHousingsSDK`
+- Key changes: Class name, method names (`renderApp` → `render`, `unmount` → `destroy`)
+- CDN-based loading → NPM package installation
+
+### Event System
+
+Events use a prefixed naming convention (`chekin:*`) defined in `packages/core/src/constants/index.ts`:
+
+- `chekin:handshake` - Initial connection
+- `chekin:height-changed` - Iframe height updates
+- `chekin:error` - SDK errors
+- `chekin:connection-error` - Network errors
+- `chekin:config-update` - Configuration updates
+- `chekin:route-changed` - Route changes in iframe
+- `chekin:ready` - SDK ready state

@@ -1,0 +1,7 @@
+{
+  "**/*.+(jsx|js|ts|tsx)": [
+    "prettier --write --ignore-unknown",
+    "nx affected --target=lint --fix"
+  ],
+  "**/*.{json,md,html,css}": ["prettier --write --ignore-unknown"]
+}
